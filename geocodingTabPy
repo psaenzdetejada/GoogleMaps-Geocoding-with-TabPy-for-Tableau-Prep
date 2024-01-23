@@ -1,0 +1,42 @@
+# make sure to have the Python modules googlemaps, pandas and json installed.
+# More information about how to install the googlemaps module can be found there: https://pypi.org/project/googlemaps/
+
+import googlemaps
+import pandas as pd
+import json
+
+
+# To use the Google API Geocoder for Tableau Prep, you'll need to have an 'address' field in your data.
+# Make sure to paste your Google API key in the 'myKey' field.
+
+def geocode_address(df):
+
+    lat = []
+    lon = []
+    adr = []
+    for i in df.index:
+        mykey = 'Paste-Here-Your-Google-API-Key'
+        gmaps = googlemaps.Client(key=mykey)
+        id = df['address'][i]
+        print(id)
+        geocode_result = gmaps.geocode(id)
+        json_data = json.dumps(geocode_result)
+        json_dict = json.loads(json_data)
+        lt = json_dict[0]['geometry']['location']['lat']
+        lg = json_dict[0]['geometry']['location']['lng']
+        formatted_address = json_dict[0]['formatted_address']
+        adr.append(formatted_address)
+        lat.append(lt)
+        lon.append(lg)
+    
+    df = pd.concat([df['address'], pd.Series(adr, name='formatted_address'),
+                     pd.Series(lat, name='latitude'), pd.Series(lon, name='longitude')], axis=1)
+    return df
+
+def get_output_schema():
+    return pd.DataFrame({
+        'address': prep_string(),
+        'formatted_address' : prep_string(),
+        'latitude' : prep_decimal(),
+        'longitude' : prep_decimal(),
+        })
