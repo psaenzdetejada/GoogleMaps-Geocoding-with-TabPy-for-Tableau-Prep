@@ -19,11 +19,19 @@ The process will require a few requirements in order to work properly:
 
 This means, having in your dataset a field that looks more or less like this:
 
-|address                                           |
-|--------------------------------------------------|
-|110 Southwark St, London SE1 0SU, United Kingdom  |
+|address                                     |
+|--------------------------------------------|
+|110 Southwark Street, SE10SU, London, UK    |
 
 The reason is that the more details we include in the address field, the more accurate the geocoding will be. There might be similar Street names in different cities, or similar City names in different States or Countries. The more context we include in the address, the less error the geocoding will return in the results.
+
+## Output
+The script is configured to return three additional fields in your output: Latitude, Longitude and Formatted Address from Google's Geocoding API. you should expect an output, based on the previous example, like the following:
+
+
+|address                                     |latitude |longitude|formatted_address                                   |
+|--------------------------------------------|---------|---------|----------------------------------------------------|
+|110 Southwark Street, SE10SU, London, UK    |51.50591 |-0.10016 |110 Southwark Street, London SE10SU, United Kingdom |
 
 [tabpy]: https://tableau.github.io/TabPy/docs/server-install.html
 
