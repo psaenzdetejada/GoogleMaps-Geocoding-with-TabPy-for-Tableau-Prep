@@ -10,17 +10,20 @@ The process will require a few requirements in order to work properly:
 3. The script will run in a Tableau Prep. The way I create the script, it requires to have a field called 'address'.
 4. To have an accurate geocoding it's recommended to have as much information in the *address* field. I'd recommend to include:
 
-  - Street name
-  - Street number
-  - Zip or Postal Code
-  - City name
-  - County, Province, State or similar detail.
-  - Country name.
+    - Street name
+    - Street number
+    - Zip or Postal Code
+    - City name
+    - County, Province, State or similar detail.
+    - Country name.
+
+This means, having in your dataset a field that looks more or less like this:
 
 |address                                           |
 |--------------------------------------------------|
 |110 Southwark St, London SE1 0SU, United Kingdom  |
 
+The reason is that the more details we include in the address field, the more accurate the geocoding will be. There might be similar Street names in different cities, or similar City names in different States or Countries. The more context we include in the address, the less error the geocoding will return in the results.
 
 [tabpy]: https://tableau.github.io/TabPy/docs/server-install.html
 
