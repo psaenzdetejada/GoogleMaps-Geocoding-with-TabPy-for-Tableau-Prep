@@ -5,12 +5,11 @@ import googlemaps
 import pandas as pd
 import json
 
-
-# To use the Google API Geocoder for Tableau Prep, you'll need to have an 'address' field in your data.
+# To use the Google API Geocoder for Tableau Prep, you'll need to have an 'address' field in your data. 
+# I recommend having as much detailed information in the 'addres' field: Street name, number, postal code, city and country.
 # Make sure to paste your Google API key in the 'myKey' field.
 
 def geocode_address(df):
-
     lat = []
     lon = []
     adr = []
@@ -18,7 +17,6 @@ def geocode_address(df):
         mykey = 'Paste-Here-Your-Google-API-Key'
         gmaps = googlemaps.Client(key=mykey)
         id = df['address'][i]
-        print(id)
         geocode_result = gmaps.geocode(id)
         json_data = json.dumps(geocode_result)
         json_dict = json.loads(json_data)
